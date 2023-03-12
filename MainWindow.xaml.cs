@@ -18,14 +18,18 @@ namespace DataBind
         public MainWindow()
         {
            
+           
             InitializeComponent();
             DataContext = this;
+            double canvasWidth = canvas.ActualWidth;
+            double canvasHeight = canvas.ActualHeight;
+            double scalefactorx = canvasWidth / 1920;
+            double scalefactory = canvasHeight / 1080;
 
-            
-            _plotX =100;
-            _plotY = 100;
-            _originX =200;
-            _originY = 200;
+            PlotX =100*scalefactorx;
+            PlotY = 100*scalefactory;
+            OriginX =200*scalefactorx;
+            OriginY = 200*scalefactory;
             
 
         }
