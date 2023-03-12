@@ -19,14 +19,7 @@
 
         </Grid>
         <Grid  Grid.Column="1" Margin="10,0,0,0">
-            <Canvas x:Name="canvas" Background="Transparent" >
-                <TextBlock x:Name="mousePosTextBlock"
-                   Canvas.Left="10"
-                   Canvas.Top="10"
-                   Text="" />
-               
-
-            </Canvas>
+           
 
             <UniformGrid Columns="10" VerticalAlignment="Center" HorizontalAlignment="Stretch">
                 <Rectangle Fill="Black" Width="2" Height="16" HorizontalAlignment="left"/>
@@ -111,7 +104,17 @@
            
             <Rectangle Width="2" VerticalAlignment="Stretch" HorizontalAlignment="Center" Fill="Black"/>
             <Rectangle Height="2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Fill="Black"/>
-            
+
+            <Canvas x:Name="canvas" Background="Transparent" >
+
+                <Line X1="{Binding OriginX}" Y1="{Binding OriginY}" X2="{Binding PlotX}" Y2="{Binding OriginY}" Stroke="Red" StrokeThickness="2"/>
+                <Line X1="{Binding OriginX}" Y1="{Binding OriginY}" X2="{Binding OriginX}" Y2="{Binding PlotY}" Stroke="Red" StrokeThickness="2"/>
+                <Line X1="{Binding PlotY}" Y1="{Binding OriginY}" X2="{Binding PlotX}" Y2="{Binding PlotY}" Stroke="Blue" StrokeThickness="2"/>
+                <Line X1="{Binding OriginX}" Y1="{Binding PlotY}" X2="{Binding PlotX}" Y2="{Binding PlotY}" Stroke="Blue" StrokeThickness="2"/>
+           </Canvas>
+
+
+
         </Grid>
     </Grid>
 </Window>

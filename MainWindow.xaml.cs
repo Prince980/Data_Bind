@@ -20,8 +20,14 @@ namespace DataBind
            
             InitializeComponent();
             DataContext = this;
-            canvas.MouseMove += Canvas_MouseMove;
-           
+
+            
+            _plotX =100;
+            _plotY = 100;
+            _originX =200;
+            _originY = 200;
+            
+
         }
         private int _boundNumber;
         public int BoundNumber
@@ -41,10 +47,10 @@ namespace DataBind
             private double _gradSaut1=1;
             private double _gradMaxSaut =5;
 
-            private double _plotX=47;
-            private double _plotY=97;
-            private double _originX = 43;
-            private double _originY = 40;
+            private double _plotX;
+            private double _plotY;
+            private double _originX;
+            private double _originY;
 
         private double _gradMaxVoile=5;
         private double _gradVoile4=4;
@@ -202,60 +208,7 @@ namespace DataBind
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public void Canvas_MouseMove(object sender, MouseEventArgs e)
-        {
-            // Get the position of the mouse cursor.
-            Point mousePos = e.GetPosition(canvas);
-            double canvasWidth = canvas.ActualWidth;
-            double canvasHeight = canvas.ActualHeight;
-            double scalefactorx = canvasWidth / 1920;
-            double scalefactory = canvasHeight / 1080;
-            // Update the text block with the mouse position.
-            mousePosTextBlock.Text = string.Format("Mouse Position: X={0}, Y={1}", mousePos.X, mousePos.Y);
-
-            // Define the data
-            double[,] data = new double[,]
-                {
-                     { mousePos.X, mousePos.Y},
-                };
-            // Create a new Line object
-            Line line = new Line();
-            Line line2 = new Line();
-            
-
-
-            // Set the start and end points of the line
-            line.X1 = (int)(960 * scalefactorx);
-           line.Y1 = mousePos.Y;
-            line.X2 = mousePos.X;
-           line.Y2 = mousePos.Y;
-
-            line2.X1 = mousePos.X;
-           line2.Y1 = (int)(541 * scalefactory);
-           line2.X2 = mousePos.X;
-            line2.Y2 = mousePos.Y;
-
-
-            
-
-            // Set the stroke and thickness of the line
-            line.Stroke = Brushes.Blue;
-           line.StrokeThickness = 2;
-           line2.Stroke = Brushes.Red;
-            line2.StrokeThickness = 2;
-            
-
-            // Add the line to a Canvas object
-            canvas.Children.Clear();
-            canvas.Children.Add(line);
-           
-           canvas.Children.Add(line2);
-            
-
-
-
-
-        }
+       
 
         private void MainWindow_IsMouseCapturedChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
