@@ -211,7 +211,8 @@ namespace DataBind
 
         private void CreatehandleChart(object sender, RoutedEventArgs e)
         {
-            double sampleX;
+
+                double sampleX;
             double sampleY;
 
             sampleX = Convert.ToDouble(Plot_x1.Text);
