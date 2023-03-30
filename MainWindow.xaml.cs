@@ -21,18 +21,22 @@ namespace DataBind
            
             InitializeComponent();
             DataContext = this;
-            double canvasWidth = canvas.ActualWidth;
-            double canvasHeight = canvas.ActualHeight;
-            double scalefactorx = canvasWidth / 1920;
-            double scalefactory = canvasHeight / 1080;
-
-            PlotX =100*scalefactorx;
-            PlotY = 100*scalefactory;
-            OriginX =200*scalefactorx;
-            OriginY = 200*scalefactory;
-            
+            Datacanvas.SizeChanged += Datacanvas_SizeChanged; ;
 
         }
+
+        public void Datacanvas_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            double canvasWidth = Datacanvas.ActualWidth;
+            double canvasHeight = Datacanvas.ActualHeight;
+            double scalefactorx = canvasWidth / 1920;
+            double scalefactory = canvasHeight / 1080;
+            OriginX = (int)(960 * scalefactorx);
+            OriginY = (int)(540 * scalefactory);
+
+            
+        }
+
         private int _boundNumber;
         public int BoundNumber
         {
@@ -45,22 +49,22 @@ namespace DataBind
         }
        
 
-            private double _gradSaut4=4;
-            private double _gradSaut3=3;
-            private double _gradSaut2=2;
-            private double _gradSaut1=1;
-            private double _gradMaxSaut =5;
+            private double _gradSaut4;
+            private double _gradSaut3;
+            private double _gradSaut2;
+            private double _gradSaut1;
+            private double _gradMaxSaut;
 
             private double _plotX;
             private double _plotY;
             private double _originX;
             private double _originY;
 
-        private double _gradMaxVoile=5;
-        private double _gradVoile4=4;
-        private double _gradVoile3=3;
-        private double _gradVoile2=2;
-        private double _gradVoile1=1;
+        private double _gradMaxVoile;
+        private double _gradVoile4;
+        private double _gradVoile3;
+        private double _gradVoile2;
+        private double _gradVoile1;
 
         
 
@@ -204,7 +208,84 @@ namespace DataBind
            
         }
 
-       
+
+        private void CreatehandleChart(object sender, RoutedEventArgs e)
+        {
+            double sampleX;
+            double sampleY;
+
+            sampleX = Convert.ToDouble(Plot_x1.Text);
+            sampleY = Convert.ToDouble(Plot_y1.Text);
+
+            if (sampleX == 0)
+            {
+                PlotX = 502;
+                GradMaxVoile = 5;
+            }
+
+            else if ((sampleX < 5 && sampleX > -5))
+            {
+                PlotX = 502 + (sampleX * 100.3);
+                GradMaxVoile = 5;
+            }
+
+            else
+            {
+                if (sampleX >= 5)
+                {
+                    PlotX = (502 + (5 * 100.3));
+
+                    GradMaxVoile = sampleX;
+                }
+                else if (sampleX <= -5)
+                {
+                    PlotX = 0;
+                    GradMaxVoile = -sampleX;
+                }
+
+            }
+
+            if (sampleY == 0)
+            {
+                PlotY = 318;
+                GradMaxSaut = 5;
+
+            }
+
+            else if (sampleY <= 5 && sampleY >= -5)
+            {
+                PlotY = 318 - (sampleY * 63.3); ;
+                GradMaxSaut = 5;
+            }
+
+            else
+            {
+                if (sampleY >= 5)
+                {
+                    PlotY = 0;
+                    GradMaxSaut = sampleY;
+                }
+                else if (sampleY <= -5)
+                {
+                    PlotY = 318 + (5 * 63.3);
+                    GradMaxSaut = -sampleY;
+                }
+
+            }
+
+            GradSaut1 = GradMaxSaut / 5;
+            GradSaut2 = GradSaut1 * 2;
+            GradSaut3 = GradSaut1 * 3;
+            GradSaut4 = GradSaut1 * 4;
+
+            GradVoile1 = GradMaxVoile / 5;
+            GradVoile2 = GradVoile1 * 2;
+            GradVoile3 = GradVoile1 * 3;
+            GradVoile4 = GradVoile1 * 4;
+        }
+
+
+
 
 
         public event PropertyChangedEventHandler PropertyChanged;
